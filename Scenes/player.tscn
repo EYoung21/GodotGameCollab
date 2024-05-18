@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://dxijh8ps5e030"]
+
+[ext_resource type="Texture2D" uid="uid://bu64p8o66pftk" path="res://Assets/Heroes/Rogue/Idle/Idle-Sheet.png" id="1_3vnfu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ytxl3"]
+atlas = ExtResource("1_3vnfu")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_amxac"]
+atlas = ExtResource("1_3vnfu")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qmv03"]
+atlas = ExtResource("1_3vnfu")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pmsjo"]
+atlas = ExtResource("1_3vnfu")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mk04v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ytxl3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_amxac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qmv03")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pmsjo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nouwo"]
+radius = 8.0
+height = 26.0
+
+[node name="player" type="CharacterBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_mk04v")
+autoplay = "default"
+frame_progress = 0.354678
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -13)
+shape = SubResource("CapsuleShape2D_nouwo")
