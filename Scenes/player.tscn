@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://dxijh8ps5e030"]
+[gd_scene load_steps=9 format=3 uid="uid://dxijh8ps5e030"]
 
 [ext_resource type="Texture2D" uid="uid://bu64p8o66pftk" path="res://Assets/Heroes/Rogue/Idle/Idle-Sheet.png" id="1_3vnfu"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_hay16"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ytxl3"]
 atlas = ExtResource("1_3vnfu")
@@ -35,7 +36,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 10.0
+"speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nouwo"]
@@ -43,12 +44,13 @@ radius = 8.0
 height = 26.0
 
 [node name="player" type="CharacterBody2D"]
+script = ExtResource("1_hay16")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_mk04v")
 autoplay = "default"
-frame_progress = 0.111358
+frame_progress = 0.59817
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -13)
