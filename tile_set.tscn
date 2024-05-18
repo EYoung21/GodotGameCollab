@@ -85,7 +85,7 @@ position = Vector2(-63, 25)
 texture = ExtResource("15_lqu4m")
 
 [node name="EnemyUfoGreenE" type="Sprite2D" parent="."]
-position = Vector2(-121, -61)
+position = Vector2(-173, -186)
 texture = ExtResource("16_bnor1")
 
 [node name="EnemyUfoGreenN" type="Sprite2D" parent="."]
