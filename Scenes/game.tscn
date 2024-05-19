@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://djcy5mt2jhwuj"]
+[gd_scene load_steps=7 format=3 uid="uid://djcy5mt2jhwuj"]
 
 [ext_resource type="PackedScene" uid="uid://dxijh8ps5e030" path="res://Scenes/player.tscn" id="1_kvd1k"]
-[ext_resource type="Texture2D" uid="uid://catn3h825ranq" path="res://Assets/Tomb/[Free-Ver.]Tiles.png" id="1_vc35g"]
+[ext_resource type="Texture2D" uid="uid://catn3h825ranq" path="res://Assets/Tomb_Tileset/[Free-Ver.]Tiles.png" id="1_vc35g"]
+[ext_resource type="PackedScene" uid="uid://clccofdwhfed" path="res://Scenes/Skeleton Swordsman.tscn" id="3_ihvda"]
+[ext_resource type="PackedScene" uid="uid://bmdwxaofo5f6o" path="res://Scenes/imp.tscn" id="4_058pv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uhxar"]
 texture = ExtResource("1_vc35g")
@@ -306,3 +308,9 @@ position = Vector2(-66, 46)
 position = Vector2(2, -16)
 zoom = Vector2(4, 4)
 position_smoothing_enabled = true
+
+[node name="Skeleton Swordsman" parent="." instance=ExtResource("3_ihvda")]
+position = Vector2(71, -52)
+
+[node name="Imp" parent="." instance=ExtResource("4_058pv")]
+position = Vector2(40, 86)

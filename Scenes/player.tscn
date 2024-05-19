@@ -6,7 +6,8 @@
 script/source = "extends CharacterBody2D
 
 # How fast is the character
-const SPEED = 90
+const SPEED = 110
+var health = 100
 
 # Reference to animated sprite 2D node
 @onready var animated_sprite = $AnimatedSprite2D
@@ -18,6 +19,14 @@ var state = State.IDLE
 # Flag to track if attack animation has been triggered
 var attack_triggered = false
 
+func _ready():
+	add_to_group(\"enemy\")  # Add the enemy to the \"enemy\" group
+	
+	# Connect the area_entered signal of the hitbox to the \"_on_Imp_area_entered\" function
+	$imp_hitbox.connect(\"area_entered\", owner, \"_on_Imp_area_entered\")
+
+	add_to_group(\"player\")
+	
 # Movement controls
 func _physics_process(delta):
 	var motion = Vector2(0, 0)
@@ -46,10 +55,8 @@ func _physics_process(delta):
 		# Handle state transitions and animations
 		if Input.is_action_just_pressed(\"melee_attack\"):
 			attack_triggered = true
-			state = State.ATTACK
 			animated_sprite.play(\"Attack\")
-			return
-			
+
 		# Check if there is motion to determine animation
 		if motion == Vector2(0, 0):
 			if state != State.IDLE:
@@ -59,11 +66,24 @@ func _physics_process(delta):
 			if state != State.RUN:
 				state = State.RUN
 				animated_sprite.play(\"Run\")
-				
+
 	else:
 		# If attack animation is playing, wait for it to finish
 		if not animated_sprite.is_playing():
-			attack_triggered = false
+			attack_triggered = false  # Reset attack_triggered once attack animation finishes
+
+# Function to handle taking damage from enemy
+func take_damage(damage):
+	health -= damage
+	if health <= 0:
+		die()
+
+func die():
+	queue_free()  # Remove the player from the scene
+
+# Function to handle being hit by an enemy
+func _on_enemy_hit_player(damage):
+	take_damage(damage)
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1qdwr"]
@@ -262,13 +282,16 @@ radius = 5.0
 height = 18.0
 
 [node name="player" type="CharacterBody2D"]
+collision_layer = 2
 script = SubResource("GDScript_17wyh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(6, -17)
 sprite_frames = SubResource("SpriteFrames_pwxyq")
-animation = &"Attack"
+animation = &"Run"
 autoplay = "Idle"
+frame = 5
+frame_progress = 0.557275
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, -11)
