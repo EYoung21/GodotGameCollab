@@ -6,7 +6,7 @@
 script/source = "extends CharacterBody2D
 
 # How fast is the character
-const SPEED = 110
+const SPEED = 90
 
 # Reference to animated sprite 2D node
 @onready var animated_sprite = $AnimatedSprite2D
@@ -46,9 +46,10 @@ func _physics_process(delta):
 		# Handle state transitions and animations
 		if Input.is_action_just_pressed(\"melee_attack\"):
 			attack_triggered = true
-			animated_sprite.play(\"Attack\")  # Start attack animation
-			return  # Stop processing further movement controls while attacking
-
+			state = State.ATTACK
+			animated_sprite.play(\"Attack\")
+			return
+			
 		# Check if there is motion to determine animation
 		if motion == Vector2(0, 0):
 			if state != State.IDLE:
@@ -60,15 +61,9 @@ func _physics_process(delta):
 				animated_sprite.play(\"Run\")
 				
 	else:
-		while attack_triggered == true:
-			motion.x = 0
-			motion.y = 0
-		
-		
-		
 		# If attack animation is playing, wait for it to finish
-		#1 if not animated_sprite.()is_playing():
-			#2 attack_triggered = false  # Reset attack_triggered once attack animation finishes
+		if not animated_sprite.is_playing():
+			attack_triggered = false
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1qdwr"]
@@ -188,7 +183,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ux2mv")
 }],
-"loop": true,
+"loop": false,
 "name": &"Attack",
 "speed": 10.0
 }, {
@@ -211,7 +206,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5afxs")
 }],
-"loop": true,
+"loop": false,
 "name": &"Death",
 "speed": 10.0
 }, {
@@ -274,8 +269,6 @@ position = Vector2(6, -17)
 sprite_frames = SubResource("SpriteFrames_pwxyq")
 animation = &"Attack"
 autoplay = "Idle"
-frame = 1
-frame_progress = 0.166712
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, -11)
