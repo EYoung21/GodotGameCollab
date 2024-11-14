@@ -13,6 +13,7 @@ const FRICTION = 500
 
 func _physics_process(delta):
 	var input_vector = Vector2.ZERO
+	#comment!
 	
 	input_vector.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	input_vector.y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
